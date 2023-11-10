@@ -11,9 +11,9 @@ import lombok.Data;
 public class GroupRequest {
     private String name;
     private Coordinates coordinates;
-    private long studentsCount;
-    private long transferredStudents;
-    private int averageMark;
-    private Semester semesterEnum;
+    private Long studentsCount;
+    private Long transferredStudents;
+    private Integer averageMark;
+    private String semester;
     private Person groupAdmin;
 }

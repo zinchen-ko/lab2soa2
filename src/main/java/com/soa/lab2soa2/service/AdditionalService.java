@@ -1,6 +1,7 @@
 package com.soa.lab2soa2.service;
 
 import com.soa.lab2soa2.dto.GroupRequest;
+import com.soa.lab2soa2.model.Semester;
 import com.soa.lab2soa2.model.StudyGroup;
 import com.soa.lab2soa2.retrofit.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class AdditionalService {
                     0L,
                     0L,
                     groupFrom.getAverageMark(),
-                    groupFrom.getSemesterEnum(),
+                    groupFrom.getSemesterEnum().getValue(),
                     groupFrom.getGroupAdmin()
             );
             GroupRequest groupRequestTo = new GroupRequest(
@@ -54,7 +55,7 @@ public class AdditionalService {
                     groupTo.getStudentsCount() + groupFrom.getStudentsCount(),
                     groupTo.getTransferredStudents() + groupFrom.getTransferredStudents(),
                     groupTo.getAverageMark(),
-                    groupTo.getSemesterEnum(),
+                    groupTo.getSemesterEnum().getValue(),
                     groupTo.getGroupAdmin()
             );
 

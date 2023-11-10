@@ -18,8 +18,8 @@ public class GroupServiceRetrofitConfig {
     @Bean
     public Retrofit retrofit() throws Exception {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://localhost:8080/api/v1/")
-                .client(getTlsTrustOkHttpClient())
+                .baseUrl("http://localhost:8080/api/v1/groups/")
+//                .client(getTlsTrustOkHttpClient())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         return retrofit;
