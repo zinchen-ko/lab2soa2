@@ -1,5 +1,7 @@
 package com.soa.lab2soa2.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum Semester {
     SECOND("SECOND"),
     THIRD("THIRD"),
@@ -7,6 +9,7 @@ public enum Semester {
     SIXTH("SIXTH"),
     SEVENTH("SEVENTH");
 
+    @JsonProperty("value")
     private final String value;
 
     Semester(String value) {

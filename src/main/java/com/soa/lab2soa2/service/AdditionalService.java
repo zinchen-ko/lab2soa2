@@ -1,13 +1,13 @@
 package com.soa.lab2soa2.service;
 
-import com.soa.lab2soa2.dto.GroupRequest;
-import com.soa.lab2soa2.model.Semester;
+import com.soa.lab2soa2.dto.GroupView;
 import com.soa.lab2soa2.model.StudyGroup;
+import com.soa.lab2soa2.model.StudyGroupPage;
 import com.soa.lab2soa2.retrofit.GroupService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +23,8 @@ public class AdditionalService {
     public Optional<Long> countTransferred() {
         try {
             long sum = 0;
-            List<StudyGroup> groupList = groupService.getGroups();
-            System.out.println(groupList);
+            StudyGroupPage groupPage = groupService.getGroups();
+            List<StudyGroup> groupList = groupPage.getStudyGroups();
             if (groupList == null) return Optional.of(0L);
             for (StudyGroup group : groupList) {
                 sum += group.getTransferredStudents();
@@ -35,12 +35,12 @@ public class AdditionalService {
         }
     }
 
-    public void moveStudents(long from, long to) {
+    public List<StudyGroup> moveStudents(long from, long to) {
         try {
             StudyGroup groupFrom = groupService.getGroupById(from);
             StudyGroup groupTo = groupService.getGroupById(to);
 
-            GroupRequest groupRequestFrom = new GroupRequest(
+            GroupView groupViewFrom = new GroupView(
                     groupFrom.getName(),
                     groupFrom.getCoordinates(),
                     0L,
@@ -49,7 +49,7 @@ public class AdditionalService {
                     groupFrom.getSemesterEnum().getValue(),
                     groupFrom.getGroupAdmin()
             );
-            GroupRequest groupRequestTo = new GroupRequest(
+            GroupView groupViewTo = new GroupView(
                     groupTo.getName(),
                     groupTo.getCoordinates(),
                     groupTo.getStudentsCount() + groupFrom.getStudentsCount(),
@@ -59,9 +59,14 @@ public class AdditionalService {
                     groupTo.getGroupAdmin()
             );
 
-            groupFrom = groupService.updateGroup(from, groupRequestFrom);
-            groupTo = groupService.updateGroup(to, groupRequestTo);
+            groupFrom = groupService.updateGroup(from, groupViewFrom);
+            groupTo = groupService.updateGroup(to, groupViewTo);
 
+            List<StudyGroup> resultList = new ArrayList<StudyGroup>();
+            resultList.add(groupFrom);
+            resultList.add(groupTo);
+
+            return resultList;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

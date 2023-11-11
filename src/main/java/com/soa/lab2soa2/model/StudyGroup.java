@@ -33,5 +33,15 @@ public class StudyGroup {
     @JsonProperty("groupAdmin")
     private Person groupAdmin; //Поле не может быть null
 
+    public StudyGroup(String name, Coordinates coordinates, Date creationDate, Long studentsCount, Long transferredStudents, Integer averageMark, Semester semesterEnum, Person groupAdmin) {
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = creationDate;
+        this.studentsCount = studentsCount;
+        this.transferredStudents = transferredStudents;
+        this.averageMark = averageMark;
+        this.semesterEnum = semesterEnum;
+        this.groupAdmin = groupAdmin;
+    }
 }
 

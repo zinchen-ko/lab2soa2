@@ -1,10 +1,12 @@
 package com.soa.lab2soa2.controller;
 
+import com.soa.lab2soa2.model.StudyGroup;
 import com.soa.lab2soa2.service.AdditionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,8 +30,7 @@ public class GroupController {
     }
 
     @PostMapping("{from}/move/{to}")
-    public ResponseEntity<String> moveStudents(@PathVariable long from, @PathVariable long to) {
-         additionalService.moveStudents(from, to);
-         return ResponseEntity.ok("Students successfully transferred");
+    public List<StudyGroup> moveStudents(@PathVariable long from, @PathVariable long to) {
+         return additionalService.moveStudents(from, to);
     }
 }
